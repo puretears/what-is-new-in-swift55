@@ -168,22 +168,25 @@ struct MyApp {
     
     var counter = 10
     
-    await arr.parallelForEach { [counter] in
-      print("\(counter + $0)")
+    await arr.parallelForEach {
+      // <1>
+      // Error, 'state' is captured immutably because closure is @Sendable.
+      counter += $0
     }
     
-    
+    // <2>
+    // Ok, function captures 'state' by reference.
     func mutateLocalState1(value: Int) {
       counter += value
     }
     
-//    await arr.parallelForEach(mutateLocalState1)
+    await arr.parallelForEach(mutateLocalState1)
     
+    // <3>
     @Sendable
     func mutateLocalState2(value: Int) {
       // Error: 'state' is captured as a let because of @Sendable
-//      counter += value
-      print(value)
+      counter += value
     }
 
     // Ok, mutateLocalState2 is @Sendable.
