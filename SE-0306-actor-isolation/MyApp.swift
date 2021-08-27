@@ -38,6 +38,7 @@ extension BankAccount {
     print("Transfering \(amount) from \(number) to \(other.number)")
     
     balance -= amount
+//    other.balance += amount
     _ = await other.deposit(amount: amount)
   }
 }

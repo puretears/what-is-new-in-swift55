@@ -105,7 +105,7 @@ extension BankAccount {
   ///   }.value
   /// }
   /// ```
-  
+
   func secondaryOwners() -> [Person] {
     let primaryName = owners[0].name
     return owners.filter { $0.name != primaryName }
@@ -157,7 +157,7 @@ struct MyApp {
     _ = bank.filterAccount {
       $0.number == boxueAccount.number
     }
-    
+
     /// <3>: ❌ `value` must be caputured explicitly.
     /// var value = 11
     /// _ = bank.filterAccount {

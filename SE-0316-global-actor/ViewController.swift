@@ -23,7 +23,9 @@ struct Todo: Codable {
   let userId: Int
   let title: String
   let body: String
-  
+}
+
+extension Todo {
   static func load(id: Int) async throws -> Todo {
     try await withUnsafeThrowingContinuation { continuation in
       var request = URLRequest(
@@ -82,4 +84,3 @@ class ViewController: UIViewController {
     }
   }
 }
-
